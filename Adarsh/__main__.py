@@ -1,4 +1,3 @@
-# (c) adarsh-goel
 import os
 import sys
 import glob
@@ -30,14 +29,12 @@ loop = asyncio.get_event_loop()
 
 async def start_services():
     print('\n')
-    print('------------------- Initalizing Telegram Bot -------------------')
+    print('------------------- Initializing Telegram Bot -------------------')
     bot_info = await StreamBot.get_me()
     StreamBot.username = bot_info.username
     print("------------------------------ DONE ------------------------------")
     print()
-    print(
-        "---------------------- Initializing Clients ----------------------"
-    )
+    print('---------------------- Initializing Clients ----------------------')
     await initialize_clients()
     print("------------------------------ DONE ------------------------------")
     print('\n')
@@ -54,30 +51,30 @@ async def start_services():
             sys.modules["Adarsh.bot.plugins." + plugin_name] = load
             print("Imported => " + plugin_name)
     if Var.ON_HEROKU:
-        print("------------------ Starting Keep Alive Service ------------------")
+        print('------------------ Starting Keep Alive Service ------------------')
         print()
         asyncio.create_task(ping_server())
-    print('-------------------- Initalizing Web Server -------------------------')
+    print('-------------------- Initializing Web Server -------------------------')
     app = web.AppRunner(await web_server())
     await app.setup()
-    bind_address = ".railway.app" if Var.ON_HEROKU else Var.BIND_ADRESS
+    bind_address = ".railway.app" if Var.ON_HEROKU else Var.BIND_ADDRESS
     await web.TCPSite(app, bind_address, Var.PORT).start()
-    print('----------------------------- DONE ---------------------------------------------------------------------')
+    print('----------------------------- DONE -----------------------------------')
     print('\n')
-    print('---------------------------------------------------------------------------------------------------------')
-    print('---------------------------------------------------------------------------------------------------------')
+    print('-----------------------------------------------------------------------')
     print(' follow me for more such exciting bots! https://github.com/aadhi000')
-    print('---------------------------------------------------------------------------------------------------------')
+    print('-----------------------------------------------------------------------')
     print('\n')
-    print('----------------------- Service Started -----------------------------------------------------------------')
+    print('----------------------- Service Started -------------------------------')
     print('                        bot =>> {}'.format((await StreamBot.get_me()).first_name))
     print('                        server ip =>> {}:{}'.format(bind_address, Var.PORT))
     print('                        Owner =>> {}'.format((Var.OWNER_USERNAME)))
     if Var.ON_HEROKU:
-        print('                        app runnng on =>> {}'.format(Var.FQDN))
-    print('---------------------------------------------------------------------------------------------------------')
-    print('Give a star to my repo https://github.com/adarsh-goel/filestreambot-pro  also follow me for new bots')
-    print('---------------------------------------------------------------------------------------------------------')
+        print('                        app running on =>> {}'.format(Var.FQDN))
+    print('-----------------------------------------------------------------------')
+    print('Give a star to my repo https://github.com/adarsh-goel/filestreambot-pro')
+    print('also follow me for new bots')
+    print('-----------------------------------------------------------------------')
     await idle()
 
 if __name__ == '__main__':
@@ -85,3 +82,4 @@ if __name__ == '__main__':
         loop.run_until_complete(start_services())
     except KeyboardInterrupt:
         logging.info('----------------------- Service Stopped -----------------------')
+            
